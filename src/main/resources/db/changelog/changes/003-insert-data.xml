@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <changeSet id="002" author="lab-student">
+        <!-- Добавляем категории -->
+        <insert tableName="categories">
+            <column name="name" value="Coffee"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Tea"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Pastry"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Sandwiches"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Desserts"/>
+        </insert>
+
+        <!-- Добавляем продукты -->
+        <insert tableName="products">
+            <column name="name" value="Latte"/>
+            <column name="description" value="A coffee drink made with espresso and steamed milk."/>
+            <column name="price" value="3.50"/>
+            <column name="image_url" value="https://example.com/images/latte.jpg"/>
+            <column name="category_id" value="1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Cappuccino"/>
+            <column name="description"
+                    value="An espresso-based coffee drink that is traditionally prepared with steamed milk foam."/>
+            <column name="price" value="3.00"/>
+            <column name="image_url" value="https://example.com/images/cappuccino.jpg"/>
+            <column name="category_id" value="1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Americano"/>
+            <column name="description" value="A type of coffee drink prepared by diluting an espresso with hot water."/>
+            <column name="price" value="2.00"/>
+            <column name="image_url" value="https://example.com/images/americano.jpg"/>
+            <column name="category_id" value="1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Green Tea"/>
+            <column name="description"
+                    value="A type of tea that is made from Camellia sinensis leaves and buds that have not undergone the same withering and oxidation process used to make oolong teas and black teas."/>
+            <column name="price" value="2.50"/>
+            <column name="image_url" value="https://example.com/images/green-tea.jpg"/>
+            <column name="category_id" value="2"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Black Tea"/>
+            <column name="description" value="A type of tea that is more oxidized than oolong, green, and white teas."/>
+            <column name="price" value="2.50"/>
+            <column name="image_url" value="https://example.com/images/black-tea.jpg"/>
+            <column name="category_id" value="2"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Croissant"/>
+            <column name="description" value="A buttery, flaky, viennoiserie pastry of Austrian origin."/>
+            <column name="price" value="2.00"/>
+            <column name="image_url" value="https://example.com/images/croissant.jpg"/>
+            <column name="category_id" value="3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Muffin"/>
+            <column name="description" value="A small baked good that can be sweet or savory."/>
+            <column name="price" value="1.50"/>
+            <column name="image_url" value="https://example.com/images/muffin.jpg"/>
+            <column name="category_id" value="3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Bagel"/>
+            <column name="description" value="A dense, chewy, doughnut-shaped bread roll."/>
+            <column name="price" value="2.00"/>
+            <column name="image_url" value="https://example.com/images/bagel.jpg"/>
+            <column name="category_id" value="3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Chicken Sandwich"/>
+            <column name="description" value="A sandwich made with chicken as the main filling."/>
+            <column name="price" value="5.00"/>
+            <column name="image_url" value="https://example.com/images/chicken-sandwich.jpg"/>
+            <column name="category_id" value="4"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Veggie Sandwich"/>
+            <column name="description" value="A sandwich made with a variety of vegetables as the main filling."/>
+            <column name="price" value="4.50"/>
+            <column name="image_url" value="https://example.com/images/veggie-sandwich.jpg"/>
+            <column name="category_id" value="4"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Cheesecake"/>
+            <column name="description" value="A sweet dessert consisting of one or more layers."/>
+            <column name="price" value="4.00"/>
+            <column name="image_url" value="https://example.com/images/cheesecake.jpg"/>
+            <column name="category_id" value="5"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Chocolate Cake"/>
+            <column name="description" value="A cake flavored with melted chocolate, cocoa powder, or both."/>
+            <column name="price" value="4.50"/>
+            <column name="image_url" value="https://example.com/images/chocolate-cake.jpg"/>
+            <column name="category_id" value="5"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Tiramisu"/>
+            <column name="description" value="A coffee-flavored Italian dessert."/>
+            <column name="price" value="5.00"/>
+            <column name="image_url" value="https://example.com/images/tiramisu.jpg"/>
+            <column name="category_id" value="5"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Brownie"/>
+            <column name="description" value="A square, baked, chocolate dessert."/>
+            <column name="price" value="3.50"/>
+            <column name="image_url" value="https://example.com/images/brownie.jpg"/>
+            <column name="category_id" value="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

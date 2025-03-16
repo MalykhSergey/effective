@@ -8,13 +8,14 @@ buildscript {
 	}
 }
 
+
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.3'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 apply plugin: 'org.liquibase.gradle'
-
 group = 'com.coffeeshop'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -29,7 +30,6 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 	// Spring Boot Core
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -41,13 +41,15 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core'
 	// Liquibase
 	liquibaseRuntime 'org.liquibase:liquibase-core:4.24.0'
-	liquibaseRuntime 'org.liquibase.ext:liquibase-hibernate6:4.24.0'
+	liquibaseRuntime 'info.picocli:picocli:4.6.3'
+	liquibaseRuntime 'org.postgresql:postgresql'
 	liquibaseRuntime 'org.springframework.boot:spring-boot-starter-data-jpa'
 	liquibaseRuntime 'org.springframework:spring-beans'
 	liquibaseRuntime 'org.springframework:spring-context'
 	liquibaseRuntime 'org.springframework.data:spring-data-jpa'
 	liquibaseRuntime 'jakarta.validation:jakarta.validation-api:3.0.2'
 	liquibaseRuntime 'org.javassist:javassist:3.29.2-GA'
+	liquibaseRuntime 'org.liquibase.ext:liquibase-hibernate6:4.24.0'
 	liquibaseRuntime sourceSets.main.output
 
 	// Documentation
@@ -60,7 +62,20 @@ dependencies {
 	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
+liquibase {
+	activities {
+		main {
+			changeLogFile './src/main/resources/db/changelog/db.changelog-master.xml'
+			url 'jdbc:postgresql://localhost:5432/coffeeshopdb'
+			username 'postgres'
+			password 'postgres'
+			referenceUrl 'hibernate:spring:com.coffeeshop.coffee_shop_backend.model?dialect=org.hibernate.dialect.PostgreSQLDialect&hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy'
+		}
+	}
+	runList = 'main'
 }
+
+
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
