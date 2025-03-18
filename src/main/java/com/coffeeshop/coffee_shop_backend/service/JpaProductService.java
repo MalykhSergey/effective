@@ -38,7 +38,7 @@ public class JpaProductService implements ProductService {
 
     @Override
     public ProductDTO getProductById(Long id) {
-        return productRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
+        return productRepository.findById(id).map(ProductDTO::new).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
     }
 
     @Override
@@ -48,20 +48,7 @@ public class JpaProductService implements ProductService {
     }
 
     private PageImpl<ProductDTO> convertToDTOPage(Pageable pageable, Page<Product> productPage) {
-        List<ProductDTO> productDTOList = productPage.stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<ProductDTO> productDTOList = productPage.stream().map(ProductDTO::new).collect(Collectors.toList());
         return new PageImpl<>(productDTOList, pageable, productPage.getTotalElements());
-    }
-
-    private ProductDTO convertToDTO(Product product) {
-        ProductDTO dto = new ProductDTO();
-        dto.setId(product.getId());
-        dto.setName(product.getName());
-        if (product.getCategory() != null)
-            dto.setCategoryId(product.getCategory().getId());
-        dto.setDescription(product.getDescription());
-        dto.setPrice(product.getPrice());
-        dto.setImageUrl(product.getImageUrl());
-        dto.setAvailable(product.isAvailable());
-        return dto;
     }
 }
