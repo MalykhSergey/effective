@@ -10,7 +10,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
+public class CategoryDTO{
     private Long id;
     private String name;
+
+
+    public CategoryDTO(Category category) {
+        this.setId(category.getId());
+        this.setName(category.getName());
+    }
 }

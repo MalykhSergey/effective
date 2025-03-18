@@ -1,5 +1,6 @@
 package com.coffeeshop.coffee_shop_backend.model;
 
+import com.coffeeshop.coffee_shop_backend.dto.CategoryDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,9 @@ public class Category {
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> productList;
+
+    public Category(CategoryDTO categoryDTO) {
+        this.setId(categoryDTO.getId());
+        this.setName(categoryDTO.getName());
+    }
 }

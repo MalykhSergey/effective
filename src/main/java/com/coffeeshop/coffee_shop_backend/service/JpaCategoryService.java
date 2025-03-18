@@ -33,9 +33,9 @@ public class JpaCategoryService implements CategoryService {
         if (categoryDTO.getId() != null) {
             throw new IdMustBeNullException("Id of new category must be null!");
         }
-        Category new_category = this.convertFromDTO(categoryDTO);
+        Category new_category = new Category(categoryDTO);
         categoryRepository.save(new_category);
-        return convertToDTO(new_category);
+        return new CategoryDTO(new_category);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class JpaCategoryService implements CategoryService {
         Category category = categoryRepository.findById(categoryDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryDTO.getId()));
         category.setName(categoryDTO.getName());
         categoryRepository.save(category);
-        return convertToDTO(category);
+        return new CategoryDTO(category);
     }
 
     @Override
@@ -53,21 +53,7 @@ public class JpaCategoryService implements CategoryService {
     }
 
     private PageImpl<CategoryDTO> convertToDTOPage(Pageable pageable, Page<Category> categoryPage) {
-        List<CategoryDTO> categoryDTOList = categoryPage.stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<CategoryDTO> categoryDTOList = categoryPage.stream().map(CategoryDTO::new).collect(Collectors.toList());
         return new PageImpl<>(categoryDTOList, pageable, categoryPage.getTotalElements());
-    }
-
-    private Category convertFromDTO(CategoryDTO categoryDTO) {
-        Category result = new Category();
-        result.setId(categoryDTO.getId());
-        result.setName(categoryDTO.getName());
-        return result;
-    }
-
-    private CategoryDTO convertToDTO(Category category) {
-        CategoryDTO result = new CategoryDTO();
-        result.setId(category.getId());
-        result.setName(category.getName());
-        return result;
     }
 }
