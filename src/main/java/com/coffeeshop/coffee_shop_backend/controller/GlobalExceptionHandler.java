@@ -1,5 +1,6 @@
 package com.coffeeshop.coffee_shop_backend.controller;
 
+import com.coffeeshop.coffee_shop_backend.exception.BadRequestException;
 import com.coffeeshop.coffee_shop_backend.exception.ErrorDetails;
 import com.coffeeshop.coffee_shop_backend.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -21,14 +22,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(PropertyReferenceException.class)
-    public ResponseEntity<?> propertyReferenceException(PropertyReferenceException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
-    public ResponseEntity<?> propertyReferenceException(InvalidDataAccessApiUsageException ex, WebRequest request) {
+    @ExceptionHandler({PropertyReferenceException.class, InvalidDataAccessApiUsageException.class, BadRequestException.class})
+    public ResponseEntity<?> badRequestException(RuntimeException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
