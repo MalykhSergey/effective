@@ -12,4 +12,9 @@ public interface ProductService {
     ProductDTO getProductById(Long id);
 
     Page<ProductDTO> getByNameContainingAndPriceBetween(String name, Long min, Long max, Pageable pageable);
+
+    ProductDTO createProduct(ProductDTO productDTO);
+    ProductDTO updateProduct(Long id, ProductDTO productDTO);
+    void deleteProduct(Long id);
+
 }

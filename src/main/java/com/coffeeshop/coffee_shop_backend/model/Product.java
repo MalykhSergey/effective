@@ -1,5 +1,6 @@
 package com.coffeeshop.coffee_shop_backend.model;
 
+import com.coffeeshop.coffee_shop_backend.dto.ProductDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,4 +37,14 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public Product(ProductDTO productDTO) {
+        this.id = productDTO.getId();
+        this.name = productDTO.getName();
+        this.description = productDTO.getDescription();
+        this.price = productDTO.getPrice();
+        this.imageUrl = productDTO.getImageUrl();
+        this.available = productDTO.isAvailable();
+        this.category = new Category(productDTO.getCategory());
+    }
 }
