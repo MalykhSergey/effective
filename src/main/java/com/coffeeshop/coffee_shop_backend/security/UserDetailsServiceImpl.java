@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public class UserDetailsServiceImpl implements UserService {
 
     private final PasswordEncoder encoder;
@@ -27,6 +29,11 @@ public class UserDetailsServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
         return UserDetailsImpl.build(user);
+    }
+
+    @Override
+    public List<UserDTO> getAll() {
+        return userRepository.findAll().stream().map(UserDTO::new).toList();
     }
 
     public void updateUser(String username, UserDTO userDTO) {

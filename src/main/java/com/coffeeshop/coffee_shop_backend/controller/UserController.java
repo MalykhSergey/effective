@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,6 +29,12 @@ public class UserController {
     @Autowired
     public UserController(UserDetailsServiceImpl userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserDTO> getAll(){
+        return userService.getAll();
     }
 
     @GetMapping("/me")
