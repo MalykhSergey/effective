@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class SignupRequest {
+public class UserDTO {
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;

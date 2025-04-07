@@ -3,7 +3,7 @@ package com.coffeeshop.coffee_shop_backend.controller;
 import com.coffeeshop.coffee_shop_backend.dto.JwtResponse;
 import com.coffeeshop.coffee_shop_backend.dto.LoginRequest;
 import com.coffeeshop.coffee_shop_backend.dto.MessageResponse;
-import com.coffeeshop.coffee_shop_backend.dto.SignupRequest;
+import com.coffeeshop.coffee_shop_backend.dto.UserDTO;
 import com.coffeeshop.coffee_shop_backend.model.Role;
 import com.coffeeshop.coffee_shop_backend.model.User;
 import com.coffeeshop.coffee_shop_backend.repository.RoleRepository;
@@ -59,7 +59,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
