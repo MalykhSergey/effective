@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +22,11 @@ public class JpaCategoryService implements CategoryService {
     @Autowired
     public JpaCategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
+    }
+
+    @Override
+    public Optional<Category> getCategoryById(Long id) {
+        return categoryRepository.findById(id);
     }
 
     @Override

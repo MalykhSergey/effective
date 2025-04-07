@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="004" author="lab-student">
+        <!-- Создание таблицы ролей -->
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!-- Создание таблицы пользователей -->
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+        </createTable>
+
+        <!-- Создание таблицы связи пользователей и ролей -->
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_user" references="users(id)"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_role" references="roles(id)"/>
+            </column>
+        </createTable>
+
+        <!-- Добавление первичного ключа для таблицы связи -->
+        <addPrimaryKey tableName="user_roles" columnNames="user_id, role_id" constraintName="pk_user_roles"/>
+
+        <!-- Добавление ролей по умолчанию -->
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+
+        <!-- Добавление тестового администратора с захешированным паролем "admin" -->
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@coffeeshop.com"/>
+            <column name="password" value="$2a$10$W2gB9tZ9Fzm9LxxC5aoG8.a8R7Bv2Tp0w5bvpvb3ujYy8wZlcrC6C"/> <!-- "admin" -->
+            <column name="first_name" value="Admin"/>
+            <column name="last_name" value="User"/>
+        </insert>
+
+        <!-- Добавление роли администратора для тестового пользователя -->
+        <insert tableName="user_roles">
+            <column name="user_id" valueComputed="(SELECT id FROM users WHERE username = 'admin')"/>
+            <column name="role_id" valueComputed="(SELECT id FROM roles WHERE name = 'ROLE_ADMIN')"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
